@@ -62,7 +62,7 @@ const covid19ImpactEstimator = (data) => {
     * data.region.avgDailyIncomePopulation
     * period;
 
-    return dollarsInFlight.toFixed(2);
+    return dollarsInFlight;
   }
 
   // make estimations
