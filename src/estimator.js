@@ -48,6 +48,23 @@ const covid19ImpactEstimator = (data) => {
     return Math.ceil(availableBeds - sc);
   }
 
+  function calculateCasesForICUByRequestedTime(ibrt) {
+    return 0.05 * ibrt;
+  }
+
+  function calculateCasesForVentilatorsByRequestedTime(ibrt) {
+    return 0.02 * ibrt;
+  }
+
+  function calculateDollarsInFlight(ibrt) {
+    const dollarsInFlight = ibrt
+    * data.region.avgDailyIncomeInUSD
+    * data.region.avgDailyIncomePopulation
+    * period;
+
+    return dollarsInFlight.toFixed(2);
+  }
+
   // make estimations
   // challenge 01
   // -impact
@@ -77,6 +94,29 @@ const covid19ImpactEstimator = (data) => {
   );
   severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
     severeImpact.severeCasesByRequestedTime
+  );
+
+  // challenge 03
+  // -impact
+  impact.casesForICUByRequestedTime = calculateCasesForICUByRequestedTime(
+    impact.infectionsByRequestedTime
+  );
+  impact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
+    impact.infectionsByRequestedTime
+  );
+  impact.dollarsInFlight = calculateDollarsInFlight(
+    impact.infectionsByRequestedTime
+  );
+
+  // -severeImpact
+  severeImpact.casesForICUByRequestedTime = calculateCasesForICUByRequestedTime(
+    severeImpact.infectionsByRequestedTime
+  );
+  severeImpact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
+    severeImpact.infectionsByRequestedTime
+  );
+  severeImpact.dollarsInFlight = calculateDollarsInFlight(
+    severeImpact.infectionsByRequestedTime
   );
 
   return {
