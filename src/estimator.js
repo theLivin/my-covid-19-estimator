@@ -24,11 +24,8 @@ const covid19ImpactEstimator = (data) => {
     reportedCases, timeToElapse, periodType, totalHospitalBeds
   } = data;
 
-  const estimations = {
-    data,
-    impact: {},
-    severeImpact: {}
-  };
+  const impact = {};
+  const severeImpact = {};
 
   const availableBeds = 0.35 * totalHospitalBeds;
 
@@ -54,39 +51,41 @@ const covid19ImpactEstimator = (data) => {
   // make estimations
   // challenge 01
   // -impact
-  estimations.impact.currentlyInfected = reportedCases * 10;
-  estimations.impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
-    estimations.impact.currentlyInfected
+  impact.currentlyInfected = reportedCases * 10;
+  impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
+    impact.currentlyInfected
   );
 
   // -severeImpact
-  estimations.severeImpact.currentlyInfected = reportedCases * 50;
-  estimations.severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
-    estimations.severeImpact.currentlyInfected
+  severeImpact.currentlyInfected = reportedCases * 50;
+  severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
+    severeImpact.currentlyInfected
   );
 
   // challenge 02
   // -impact
-  estimations.impact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
-    estimations.impact.infectionsByRequestedTime
+  impact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    impact.infectionsByRequestedTime
   );
-  estimations.impact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
-    estimations.impact.severeCasesByRequestedTime
+  impact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
+    impact.severeCasesByRequestedTime
   );
 
   // -severeImpact
-  estimations.severeImpact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
-    estimations.severeImpact.infectionsByRequestedTime
+  severeImpact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    severeImpact.infectionsByRequestedTime
   );
-  estimations.severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
-    estimations.severeImpact.severeCasesByRequestedTime
+  severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
+    severeImpact.severeCasesByRequestedTime
   );
 
-  console.log(estimations);
-
-  return estimations;
+  return {
+    data,
+    impact,
+    severeImpact
+  };
 };
 
-covid19ImpactEstimator(input);
+console.log(covid19ImpactEstimator(input));
 
 // export default covid19ImpactEstimator;
