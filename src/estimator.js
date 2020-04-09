@@ -53,16 +53,16 @@ const covid19ImpactEstimator = (data) => {
   }
 
   function calculateCasesForVentilatorsByRequestedTime(ibrt) {
-    return Math.trunc(0.02 * ibrt * 30);
+    return Math.trunc(0.02 * ibrt);
   }
 
   function calculateDollarsInFlight(ibrt) {
-    const dollarsInFlight = ibrt
+    const dollarsInFlight = (ibrt
     * data.region.avgDailyIncomeInUSD
-    * data.region.avgDailyIncomePopulation
-    * period;
+    * data.region.avgDailyIncomePopulation)
+    / period;
 
-    return parseFloat(dollarsInFlight.toFixed(2));
+    return Math.trunc(dollarsInFlight);
   }
 
   // make estimations
