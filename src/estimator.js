@@ -1,4 +1,4 @@
-/*
+
 const input = {
   region: {
     name: 'Africa',
@@ -16,7 +16,7 @@ const input = {
   population: 66622705,
   totalHospitalBeds: 1380614
 };
-*/
+
 
 const covid19ImpactEstimator = (data) => {
   // variables & objects defintions/declarations
@@ -30,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: {}
   };
 
-  const availableBeds = Math.trunc(0.35 * totalHospitalBeds);
+  const availableBeds = 0.35 * totalHospitalBeds;
 
   let period = timeToElapse;
 
@@ -48,7 +48,7 @@ const covid19ImpactEstimator = (data) => {
   }
 
   function calculateHospitalBedsByRequiredTime(sc) {
-    return availableBeds - sc;
+    return Math.ceil(availableBeds - sc);
   }
 
   // make estimations
@@ -82,11 +82,11 @@ const covid19ImpactEstimator = (data) => {
     estimations.severeImpact.severeCasesByRequestedTime
   );
 
-  // console.log(estimations);
+  console.log(estimations);
 
   return estimations;
 };
 
-// covid19ImpactEstimator(input);
+covid19ImpactEstimator(input);
 
-export default covid19ImpactEstimator;
+// export default covid19ImpactEstimator;
