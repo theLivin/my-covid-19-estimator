@@ -49,11 +49,11 @@ const covid19ImpactEstimator = (data) => {
   }
 
   function calculateCasesForICUByRequestedTime(ibrt) {
-    return 0.05 * ibrt;
+    return Math.ceil(0.05 * ibrt);
   }
 
   function calculateCasesForVentilatorsByRequestedTime(ibrt) {
-    return 0.02 * ibrt;
+    return Math.ceil(0.02 * ibrt);
   }
 
   function calculateDollarsInFlight(ibrt) {
@@ -62,7 +62,7 @@ const covid19ImpactEstimator = (data) => {
     * data.region.avgDailyIncomePopulation
     * period;
 
-    return dollarsInFlight;
+    return Math.round(dollarsInFlight, 2);
   }
 
   // make estimations
