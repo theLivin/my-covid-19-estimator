@@ -53,7 +53,7 @@ const covid19ImpactEstimator = (data) => {
   }
 
   function calculateCasesForVentilatorsByRequestedTime(ibrt) {
-    return Math.trunc(0.02 * ibrt);
+    return Math.trunc(0.02 * ibrt * 0.15);
   }
 
   function calculateDollarsInFlight(ibrt) {
