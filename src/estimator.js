@@ -19,13 +19,18 @@ const input = {
 */
 
 const covid19ImpactEstimator = (data) => {
-  // variable/object defintions
-  const { reportedCases, timeToElapse, periodType } = data;
+  // variables & objects defintions/declarations
+  const {
+    reportedCases, timeToElapse, periodType, totalHospitalBeds
+  } = data;
+
   const estimations = {
     data,
     impact: {},
     severeImpact: {}
   };
+
+  const availableBeds = Math.trunc(0.35 * totalHospitalBeds);
 
   let period = timeToElapse;
 
@@ -38,7 +43,16 @@ const covid19ImpactEstimator = (data) => {
     return ci * (2 ** factor);
   }
 
+  function calculateSevereCasesByRequestedTime(ibrt) {
+    return 0.15 * ibrt;
+  }
+
+  function calculateHospitalBedsByRequiredTime(sc) {
+    return availableBeds - sc;
+  }
+
   // make estimations
+  // challenge 01
   // -impact
   estimations.impact.currentlyInfected = reportedCases * 10;
   estimations.impact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
@@ -49,6 +63,23 @@ const covid19ImpactEstimator = (data) => {
   estimations.severeImpact.currentlyInfected = reportedCases * 50;
   estimations.severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
     estimations.severeImpact.currentlyInfected
+  );
+
+  // challenge 02
+  // -impact
+  estimations.impact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    estimations.impact.infectionsByRequestedTime
+  );
+  estimations.impact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
+    estimations.impact.severeCasesByRequestedTime
+  );
+
+  // -severeImpact
+  estimations.severeImpact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    estimations.severeImpact.infectionsByRequestedTime
+  );
+  estimations.severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequiredTime(
+    estimations.severeImpact.severeCasesByRequestedTime
   );
 
   // console.log(estimations);
