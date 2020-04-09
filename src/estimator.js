@@ -113,7 +113,7 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.infectionsByRequestedTime
   );
   severeImpact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
-    impact.infectionsByRequestedTime
+    severeImpact.infectionsByRequestedTime
   );
   severeImpact.dollarsInFlight = calculateDollarsInFlight(
     severeImpact.infectionsByRequestedTime
