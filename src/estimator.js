@@ -62,7 +62,7 @@ const covid19ImpactEstimator = (data) => {
     * data.region.avgDailyIncomePopulation
     * period;
 
-    return Math.round(dollarsInFlight, 2);
+    return parseFloat(dollarsInFlight.toFixed(2));
   }
 
   // make estimations
@@ -113,7 +113,7 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.infectionsByRequestedTime
   );
   severeImpact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
-    severeImpact.infectionsByRequestedTime
+    impact.infectionsByRequestedTime
   );
   severeImpact.dollarsInFlight = calculateDollarsInFlight(
     severeImpact.infectionsByRequestedTime
