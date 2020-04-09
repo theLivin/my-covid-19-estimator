@@ -1,4 +1,4 @@
-
+/*
 const input = {
   region: {
     name: 'Africa',
@@ -16,7 +16,7 @@ const input = {
   population: 66622705,
   totalHospitalBeds: 1380614
 };
-
+*/
 
 const covid19ImpactEstimator = (data) => {
   // variables & objects defintions/declarations
@@ -86,6 +86,6 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-console.log(covid19ImpactEstimator(input));
+// console.log(covid19ImpactEstimator(input));
 
-// export default covid19ImpactEstimator;
+export default covid19ImpactEstimator;
