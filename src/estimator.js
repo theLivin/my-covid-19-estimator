@@ -6,11 +6,7 @@ const input = {
     avgDailyIncomeInUSD: 5,
     avgDailyIncomePopulation: 0.71
   },
-  // periodType: 'days',
-  // periodType: 'weeks',
   periodType: 'months',
-  // timeToElapse: 58,
-  // timeToElapse: 8.571428571,
   timeToElapse: 2,
   reportedCases: 674,
   population: 66622705,
@@ -128,4 +124,6 @@ const covid19ImpactEstimator = (data) => {
 
 // console.log(covid19ImpactEstimator(input));
 
-export default covid19ImpactEstimator;
+// export default covid19ImpactEstimator;
+
+module.exports = covid19ImpactEstimator;
