@@ -41,7 +41,7 @@ const covid19ImpactEstimator = (data) => {
   }
 
   function calculateHospitalBedsByRequiredTime(sc) {
-    return Math.ceil(availableBeds - sc);
+    return Math.trunc(availableBeds - sc);
   }
 
   function calculateCasesForICUByRequestedTime(ibrt) {
