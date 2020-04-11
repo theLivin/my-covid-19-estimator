@@ -8,7 +8,7 @@ const estimator = require('../../estimator');
 const router = express.Router();
 
 // handle base route
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const estimations = estimator(req.body);
   const options = { compact: true, ignoreComment: true, spaces: 4 };
   const result = convert.json2xml(JSON.stringify(estimations), options);
