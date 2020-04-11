@@ -12,6 +12,7 @@ router.post('/', (req, res, next) => {
   const estimations = estimator(req.body);
   const options = { compact: true, ignoreComment: true, spaces: 4 };
   const result = convert.json2xml(JSON.stringify(estimations), options);
+  res.header('Content-Type', 'application/xml');
   res.status(200).send(result);
 });
 
