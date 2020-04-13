@@ -17,7 +17,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.txt'),
 // to log requests
 // app.use(morgan('dev'));
 // app.use(morgan(':method\t\t:url\t\t:status\t\t:response-time ms', { stream: accessLogStream }));
-app.use(morgan(':method  :url  :status  :response-time ms', { stream: accessLogStream }));
+app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogStream }));
 
 // to get body of request
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,10 +31,9 @@ app.use('/api/v1/on-covid-19/xml', xmlRoutes);
 // handle read-logs request
 app.use('/api/v1/on-covid-19/logs', (req, res, next) => {
   const logs = fs.readFileSync(path.join(__dirname, 'access.txt'), 'utf-8');
-  // const logs = path.join(__dirname, 'access.txt');
   res.header('Content-Type', 'text/plain');
   res.status(200);
-  res.write(logs);
+  res.write(logs.toString());
   res.end();
 });
 
