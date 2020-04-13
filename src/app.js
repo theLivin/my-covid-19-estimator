@@ -31,8 +31,11 @@ app.use('/api/v1/on-covid-19/xml', xmlRoutes);
 // handle read-logs request
 app.use('/api/v1/on-covid-19/logs', (req, res, next) => {
   const logs = fs.readFileSync(path.join(__dirname, 'access.txt'), 'utf-8');
+  // const logs = path.join(__dirname, 'access.txt');
   res.header('Content-Type', 'text/plain');
-  res.status(200).send(logs);
+  res.status(200);
+  res.write(logs);
+  res.end();
 });
 
 // handle errors
