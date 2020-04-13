@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -17,7 +18,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.txt'),
 // to log requests
 // app.use(morgan('dev'));
 // app.use(morgan(':method\t\t:url\t\t:status\t\t:response-time ms', { stream: accessLogStream }));
-app.use(morgan(':method\t:url\t:status\t:response-time ms', { stream: accessLogStream }));
+app.use(morgan(':method\t:url\t:status\t:response-time', { stream: accessLogStream }));
 
 // to get body of request
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +34,12 @@ app.use('/api/v1/on-covid-19/logs', (req, res, next) => {
   const logs = fs.readFileSync(path.join(__dirname, 'access.txt'), 'utf-8');
   res.header('Content-Type', 'text/plain');
   res.status(200);
-  res.write(logs.toString());
+  const lines = logs.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i] !== '') {
+      res.write(`${lines[i].toString()}ms\n`);
+    }
+  }
   res.end();
 });
 
@@ -56,3 +62,4 @@ app.use((error, req, res, next) => {
 module.exports = app;
 
 /* eslint-enable no-unused-vars */
+/* eslint-enable no-plusplus */
