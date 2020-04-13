@@ -36,8 +36,18 @@ app.use('/api/v1/on-covid-19/logs', (req, res, next) => {
   res.status(200);
   const lines = logs.split('\n');
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i] !== '') {
-      res.write(`${lines[i].toString()}ms\n`);
+    const currentLine = lines[i];
+    if (currentLine !== '') {
+      // Get response time and ceil it
+      const lastTabIndex = currentLine.lastIndexOf('\t');
+      const lastCharIndex = currentLine.length - 1;
+      const resTimeStr = currentLine.substring(lastTabIndex + 1, lastCharIndex);
+      const resTimeInt = Math.ceil(parseFloat(resTimeStr));
+      // Put 0 infront of resTimeInt if it is less than 10
+      const resTimeFinal = (resTimeInt < 10) ? `0${resTimeInt}` : resTimeInt;
+
+      const outputLine = `${currentLine.substring(0, lastTabIndex + 1)}${resTimeFinal}`;
+      res.write(`${outputLine.toString()}ms\n`);
     }
   }
   res.end();
